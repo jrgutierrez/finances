@@ -35,7 +35,7 @@ st.markdown(
     """
 <style>
 [data-testid="stMetricValue"] {
-    font-size: 100px;
+    font-size: 200px;
 }
 /*center metric label*/
 [data-testid="stMetricLabel"] > div:nth-child(1) {
