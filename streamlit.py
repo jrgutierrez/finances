@@ -27,6 +27,5 @@ final_date = st.sidebar.date_input(
 data = data.loc[initial_date:final_date]
 
 fig = px.bar(data, x = data.index, y = 'price', title = 'Billing evolution')
-fig.update_traces(line_color='#00ff00')
 fig.update_layout(xaxis_title = 'Date', yaxis_title = 'Billing')
 st.plotly_chart(fig, use_container_width=True)
