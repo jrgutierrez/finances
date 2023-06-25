@@ -45,6 +45,7 @@ fig = px.bar(data_evo, x = data_evo.index, y = 'price', title = f'Billing evolut
 fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
                   yaxis_title = 'Billing')
 fig.update_traces(marker_color='green', marker_line_color = 'green', marker_line_width = 1)
+fig.update_xaxes(type='category')
 st.plotly_chart(fig, use_container_width=True)
 
 data_company = data.groupby('company').agg({'price': 'sum'})
