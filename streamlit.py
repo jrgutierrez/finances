@@ -41,7 +41,7 @@ st.markdown(
 """,
     unsafe_allow_html=True,
 )
-st.metric(label = "Total Billed", value = f"{round(sum(data['price']), 2)}€")
+st.metric(label = "Total Billed", value = "{.2f}€".format(sum(data['price'])))
 
 if group_time == 'Day':
     data_evo = data.groupby(lambda x: x.date).aggregate({'price': 'sum'})
