@@ -1,15 +1,10 @@
 import streamlit as st
 import plotly.express as px
 from data import get_data
-from plotly.subplots import make_subplots
-
 
 st.set_page_config(layout="wide")
 
 data = get_data()
-
-
-
 
 initial_date = st.sidebar.date_input(
     "Select initial date:",
