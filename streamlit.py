@@ -36,10 +36,14 @@ st.markdown(
 <style>
 [data-testid="stMetricValue"] {
     font-size: 100px;
-    justify-content: center;
 }
 /*center metric label*/
 [data-testid="stMetricLabel"] > div:nth-child(1) {
+    justify-content: center;
+}
+
+/*center metric value*/
+[data-testid="stMetricValue"] > div:nth-child(1) {
     justify-content: center;
 }
 </style>
