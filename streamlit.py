@@ -43,3 +43,11 @@ fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if gr
                   yaxis_title = 'Billing')
 fig.update_traces(marker_color='green')
 st.plotly_chart(fig, use_container_width=True)
+
+data = data.groupby('company').agg({'price': 'sum'})
+
+fig = px.bar(data, x = data.index, y = 'price', title = 'Billing by company')
+fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
+                  yaxis_title = 'Billing')
+fig.update_traces(marker_color='green')
+st.plotly_chart(fig, use_container_width=True)
