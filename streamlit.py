@@ -6,6 +6,16 @@ st.set_page_config(layout="wide")
 
 data = get_data()
 
+window = st.sidebar.radio(
+        "Select window 👇",
+        options=["Overview", "Detail", "Forecasting"],
+    )
+
+group_time = st.sidebar.radio(
+        "Select time group 👇",
+        options=["Day", "Week", "Month"],
+    )
+
 initial_date = st.sidebar.date_input(
     "Select initial date:",
     data.index[0],
@@ -20,6 +30,13 @@ final_date = st.sidebar.date_input(
 
 
 data = data.loc[initial_date:final_date]
+
+if group_time == 'Week':
+    data = data.groupby(lambda x: x.isocalendar()[1]).aggregate({'price': 'sum'})
+
+if group_time == 'Month':
+    data = data.groupby(lambda x: x.month).aggregate({'price': 'sum'})
+
 
 fig = px.bar(data, x = data.index, y = 'price', title = 'Billing evolution')
 fig.update_layout(xaxis_title = 'Date', yaxis_title = 'Billing')
