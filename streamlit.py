@@ -31,6 +31,16 @@ final_date = st.sidebar.date_input(
 
 data = data.loc[initial_date:final_date]
 
+st.markdown(
+    """
+<style>
+[data-testid="stMetricValue"] {
+    font-size: 100px;
+}
+</style>
+""",
+    unsafe_allow_html=True,
+)
 st.metric(label = "Total Billed", value = f"{round(sum(data['price']), 2)}€")
 
 if group_time == 'Day':
