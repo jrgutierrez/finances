@@ -17,7 +17,7 @@ def prepare_data(data):
     data = data[['company', 'description', 'price']]
     
     data = data.groupby(lambda x: x.date).aggregate({'price': 'sum'})
-    return data.reindex(pd.date_range(data.index[0], data.index[-1])).fillna(1)
+    return data.reindex(pd.date_range(data.index[0], data.index[-1])).fillna(50)
 
 def get_data():
     data = get_raw_data()
