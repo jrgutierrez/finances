@@ -44,6 +44,7 @@ st.markdown(
 
 /*center metric value*/
 [data-testid="stMetricValue"] > div:nth-child(1) {
+    display:flex;
     justify-content: center;
 }
 </style>
