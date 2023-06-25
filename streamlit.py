@@ -31,7 +31,7 @@ final_date = st.sidebar.date_input(
 
 data = data.loc[initial_date:final_date]
 
-st.metric(label = "Total Billed", value = sum(data['price']))
+st.metric(label = "Total Billed", value = f"{round(sum(data['price']), 2)}€")
 
 if group_time == 'Day':
     data_evo = data.groupby(lambda x: x.date).aggregate({'price': 'sum'})
