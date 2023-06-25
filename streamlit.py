@@ -39,12 +39,13 @@ st.markdown(
 }
 /*center metric label*/
 [data-testid="stMetricLabel"] > div:nth-child(1) {
+    display: flex;
     justify-content: center;
 }
 
 /*center metric value*/
 [data-testid="stMetricValue"] > div:nth-child(1) {
-    display:flex;
+    display: flex;
     justify-content: center;
 }
 </style>
