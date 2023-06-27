@@ -58,14 +58,13 @@ st.metric(label = "Total Billed", value = f"{sum(data['price']):.2f}€")
 
 if group_time == 'Day':
     data_evo = data.groupby(lambda x: x.date).aggregate({'price': 'sum'})
+    data_evo = data_evo.reindex(pd.date_range(datetime(2023, 6, 1), data_evo.index[-1])).fillna(0)
 
 if group_time == 'Week':
     data_evo = data.groupby(lambda x: x.isocalendar()[1]).aggregate({'price': 'sum'})
 
 if group_time == 'Month':
     data_evo = data.groupby(lambda x: x.month).aggregate({'price': 'sum'})
-
-data_evo = data_evo.reindex(pd.date_range(datetime(2023, 6, 1), data_evo.index[-1])).fillna(0)
 
 
 fig = px.bar(data_evo, x = data_evo.index, y = 'price', title = f'Billing evolution')
