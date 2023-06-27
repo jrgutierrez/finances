@@ -21,13 +21,13 @@ group_time = st.sidebar.radio(
 initial_date = st.sidebar.date_input(
     "Select initial date:",
     data.index[0],
-    min_value=data.index[0], 
+    min_value=datetime(2023, 6, 1), 
     max_value=data.index[-1])
 
 final_date = st.sidebar.date_input(
     "Select final date:",
     data.index[-1],
-    min_value=initial_date, 
+    min_value=datetime(2023, 6, 1), 
     max_value=data.index[-1])
 
 
