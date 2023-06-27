@@ -124,8 +124,7 @@ def fc_plots():
     fig = px.line(data_evo, x = data_evo.index, y = 'price', markers = True, title = 'Billing Forecast', color_discrete_sequence=['#00ff00'])
     fig.add_scatter(x=y_pred_out.index, y=y_pred_out['Predictions'], mode='markers+lines')
     fig.update_traces(showlegend=False)
-    fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
-                    yaxis_title = 'Billing')
+    fig.update_layout(xaxis_title = 'Date', yaxis_title = 'Billing')
     st.plotly_chart(fig, use_container_width=True)
 
 if window == 'Overview':
