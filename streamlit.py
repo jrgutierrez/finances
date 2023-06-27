@@ -85,7 +85,14 @@ def overview_plots():
 
 
 def detail_plots():
-    fig = px.bar(data_evo, x = data_evo.index, y = 'price', title = f'Billing evolution')
+
+    df_fin = pd.DataFrame(columns = ['date', 'price', 'company']).set_index('date')
+    for comp in data['company'].unique().tolist():
+        df = data[data['company'] == comp].groupby(['date']).aggregate({'price': 'sum'}).reindex(pd.date_range(datetime(2023, 6, 1), datetime.today())).fillna(0)
+        df['company'] = [comp] * len(df)
+        df_fin = df_fin.append(df)
+
+    fig = px.bar(df_fin, x = df_fin.index, y = 'price', color = 'company', title = f'Billing evolution')
     fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
                     yaxis_title = 'Billing')
     fig.update_traces(marker_color='green', marker_line_color = 'green', marker_line_width = 1)
