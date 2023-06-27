@@ -54,7 +54,6 @@ st.markdown(
 """,
     unsafe_allow_html=True,
 )
-st.metric(label = "Total Billed", value = f"{sum(data['price']):.2f}€")
 
 if group_time == 'Day':
     data_evo = data.groupby(lambda x: x.date).aggregate({'price': 'sum'})
@@ -66,23 +65,35 @@ if group_time == 'Week':
 if group_time == 'Month':
     data_evo = data.groupby(lambda x: x.month).aggregate({'price': 'sum'})
 
-fig = px.line(data_evo, x = data_evo.index, y = 'price', markers = True, title = f'Billing evolution')
-fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
-                  yaxis_title = 'Billing')
-fig.update_traces(line_color='green')
-st.plotly_chart(fig, use_container_width=True)
+def overview_plots():
+    st.metric(label = "Total Billed", value = f"{sum(data['price']):.2f}€")
 
-fig = px.bar(data_evo, x = data_evo.index, y = 'price', title = f'Billing evolution')
-fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
-                  yaxis_title = 'Billing')
-fig.update_traces(marker_color='green', marker_line_color = 'green', marker_line_width = 1)
-fig.update_xaxes(type='category')
-st.plotly_chart(fig, use_container_width=True)
+    fig = px.line(data_evo, x = data_evo.index, y = 'price', markers = True, title = f'Billing evolution')
+    fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
+                    yaxis_title = 'Billing')
+    fig.update_traces(line_color='green')
+    st.plotly_chart(fig, use_container_width=True)
 
-data_company = data.groupby('company').agg({'price': 'sum'})#.drop(0)
-fig = px.bar(data_company, x = data_company.index, y = 'price', title = 'Billing by company')
-fig.update_layout(xaxis_title = 'Company', 
-                  yaxis_title = 'Billing')
-fig.update_traces(marker_color='green', marker_line_color = 'green', marker_line_width = 1)
-fig.update_xaxes(type='category')
-st.plotly_chart(fig, use_container_width=True)
+
+def detail_plots():
+    fig = px.bar(data_evo, x = data_evo.index, y = 'price', title = f'Billing evolution')
+    fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
+                    yaxis_title = 'Billing')
+    fig.update_traces(marker_color='green', marker_line_color = 'green', marker_line_width = 1)
+    fig.update_xaxes(type='category')
+    st.plotly_chart(fig, use_container_width=True)
+
+    data_company = data.groupby('company').agg({'price': 'sum'})#.drop(0)
+    fig = px.bar(data_company, x = data_company.index, y = 'price', title = 'Billing by company')
+    fig.update_layout(xaxis_title = 'Company', 
+                    yaxis_title = 'Billing')
+    fig.update_traces(marker_color='green', marker_line_color = 'green', marker_line_width = 1)
+    fig.update_xaxes(type='category')
+    st.plotly_chart(fig, use_container_width=True)
+
+
+if window == 'Overview':
+    overview_plots()
+
+if window == 'Detail':
+    detail_plots()
