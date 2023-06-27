@@ -72,7 +72,7 @@ def overview_plots():
     fig = px.line(data_evo, x = data_evo.index, y = 'price', markers = True, title = f'Billing evolution')
     fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
                     yaxis_title = 'Billing')
-    fig.update_traces(line_color = '00ff00')
+    fig.update_traces(line_color = '#00ff00')
     st.plotly_chart(fig, use_container_width=True)
 
 
