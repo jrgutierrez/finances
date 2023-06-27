@@ -73,7 +73,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 data_company = data.groupby('company').agg({'price': 'sum'}).drop(0)
 fig = px.bar(data_company, x = data_company.index, y = 'price', title = 'Billing by company')
-fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
+fig.update_layout(xaxis_title = 'Company', 
                   yaxis_title = 'Billing')
 fig.update_traces(marker_color='green', marker_line_color = 'green', marker_line_width = 1)
 fig.update_xaxes(type='category')
