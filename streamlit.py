@@ -66,10 +66,10 @@ if group_time == 'Week':
 if group_time == 'Month':
     data_evo = data.groupby(lambda x: x.month).aggregate({'price': 'sum'})
 
-fig = px.line(data_evo, x = data_evo.index, y = 'price', title = f'Billing evolution', color = '#00ff00')
+fig = px.line(data_evo, x = data_evo.index, y = 'price', title = f'Billing evolution')
 fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
                   yaxis_title = 'Billing')
-fig.update_traces(marker_color='green', marker_line_color = 'green', marker_line_width = 1)
+fig.update_traces(line_color='green')
 st.plotly_chart(fig, use_container_width=True)
 
 fig = px.bar(data_evo, x = data_evo.index, y = 'price', title = f'Billing evolution')
