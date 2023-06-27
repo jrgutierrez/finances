@@ -20,7 +20,7 @@ group_time = st.sidebar.radio(
 
 initial_date = st.sidebar.date_input(
     "Select initial date:",
-    data.index[0],
+    datetime(2023, 6, 1),
     min_value=datetime(2023, 6, 1), 
     max_value=data.index[-1])
 
