@@ -66,7 +66,7 @@ if group_time == 'Week':
 if group_time == 'Month':
     data_evo = data.groupby(lambda x: x.month).aggregate({'price': 'sum'})
 
-fig = px.line(data_evo, x = data_evo.index, y = 'price', title = f'Billing evolution')
+fig = px.line(data_evo, x = data_evo.index, y = 'price', markers = True, title = f'Billing evolution')
 fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
                   yaxis_title = 'Billing')
 fig.update_traces(line_color='green')
