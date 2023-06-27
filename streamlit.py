@@ -92,9 +92,21 @@ def detail_plots():
     fig.update_xaxes(type='category')
     st.plotly_chart(fig, use_container_width=True)
 
+def fc_plots():
+    st.metric(label = "Total Billed", value = f"{sum(data['price']):.2f}€")
+
+    fig = px.line(data_evo, x = data_evo.index, y = 'price', markers = True, title = f'Billing evolution')
+    fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
+                    yaxis_title = 'Billing')
+    fig.update_traces(line_color = '#00ff00')
+    st.plotly_chart(fig, use_container_width=True)
+
 
 if window == 'Overview':
     overview_plots()
 
 if window == 'Detail':
     detail_plots()
+
+if window == 'Forecasting':
+    fc_plots()
