@@ -4,31 +4,32 @@ import pandas as pd
 from datetime import datetime
 from data import get_data
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout = 'wide')
 
 data = get_data()
 
 window = st.sidebar.radio(
-        "Select window 👇",
-        options=["Overview", "Detail", "Forecasting"],
+        'Select window 👇',
+        options=['Overview', 'Detail', 'Forecasting'],
     )
 
-group_time = st.sidebar.radio(
-        "Select time group 👇",
-        options=["Day", "Week", "Month"],
-    )
+if window in ['Overview', 'Detail']:
+    group_time = st.sidebar.radio(
+            'Select time group 👇',
+            options=['Day', 'Week', 'Month'],
+        )
 
 if window == 'Forecasting':
     n_fc = st.sidebar.number_input('Insert Forecasting days:', min_value=1, max_value=60, value=15)
 
 initial_date = st.sidebar.date_input(
-    "Select initial date:",
+    'Select initial date:',
     datetime(2023, 6, 1),
     min_value = datetime(2023, 6, 1), 
     max_value = datetime.today())
 
 final_date = st.sidebar.date_input(
-    "Select final date:",
+    'Select final date:',
     datetime.today(),
     min_value = datetime(2023, 6, 1), 
     max_value = datetime.today())
@@ -58,16 +59,20 @@ st.markdown(
 """,
     unsafe_allow_html=True,
 )
+if window in ['Overview', 'Detail']:
+    if group_time == 'Day':
+        data_evo = data.groupby(lambda x: x.date).aggregate({'price': 'sum'})
+        data_evo = data_evo.reindex(pd.date_range(datetime(2023, 6, 1), datetime.today())).fillna(0)
 
-if group_time == 'Day':
+    if group_time == 'Week':
+        data_evo = data.groupby(lambda x: x.isocalendar()[1]).aggregate({'price': 'sum'})
+
+    if group_time == 'Month':
+        data_evo = data.groupby(lambda x: x.month).aggregate({'price': 'sum'})
+
+if window == 'Forecasting':
     data_evo = data.groupby(lambda x: x.date).aggregate({'price': 'sum'})
     data_evo = data_evo.reindex(pd.date_range(datetime(2023, 6, 1), datetime.today())).fillna(0)
-
-if group_time == 'Week':
-    data_evo = data.groupby(lambda x: x.isocalendar()[1]).aggregate({'price': 'sum'})
-
-if group_time == 'Month':
-    data_evo = data.groupby(lambda x: x.month).aggregate({'price': 'sum'})
 
 def overview_plots():
     st.metric(label = "Total Billed", value = f"{sum(data['price']):.2f}€")
