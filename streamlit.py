@@ -26,7 +26,7 @@ initial_date = st.sidebar.date_input(
 
 final_date = st.sidebar.date_input(
     "Select final date:",
-    data.index[-1],
+    datetime.today(),
     min_value = datetime(2023, 6, 1), 
     max_value = datetime.today())
 
