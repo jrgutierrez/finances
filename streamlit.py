@@ -62,7 +62,7 @@ st.markdown(
 if window in ['Overview', 'Detail']:
     if group_time == 'Day':
         data_evo = data.groupby(lambda x: x.date).aggregate({'price': 'sum'})
-        data_evo = data_evo.reindex(pd.date_range(data_evo.index.values[0], data_evo.index.values[-1])).fillna(0)
+        data_evo = data_evo.reindex(pd.date_range(data_evo.index[0], data_evo.index[-1])).fillna(0)
 
     if group_time == 'Week':
         data_evo = data.groupby(lambda x: x.isocalendar()[1]).aggregate({'price': 'sum'})
