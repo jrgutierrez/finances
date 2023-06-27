@@ -99,6 +99,13 @@ def detail_plots():
             df['company'] = [comp] * len(df)
             df_fin = pd.concat([df_fin, df])
 
+    if group_time == 'Month':
+        df_fin = pd.DataFrame(columns = ['date', 'price', 'company']).set_index('date')
+        for comp in data['company'].unique().tolist():
+            df = data[data['company'] == comp].groupby(lambda x: x.month).aggregate({'price': 'sum'})
+            df['company'] = [comp] * len(df)
+            df_fin = pd.concat([df_fin, df])
+
     fig = px.bar(df_fin, x = df_fin.index, y = 'price', color = 'company', title = f'Billing evolution')
     fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
                     yaxis_title = 'Billing')
