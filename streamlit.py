@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 from datetime import datetime
+import datetime as dt
 from data import get_data
 
 st.set_page_config(layout = 'wide', initial_sidebar_state="collapsed")
@@ -28,7 +29,7 @@ range_type = st.sidebar.radio(
     )
 
 if range_type == 'Last 30 days':
-    default_initial_date = datetime.today() - datetime.timedelta(days = 30)
+    default_initial_date = datetime.today() - dt.timedelta(days = 30)
 elif range_type == 'Max.':
     default_initial_date = datetime(2023, 6, 1)
 
