@@ -53,7 +53,7 @@ st.markdown(
 [data-testid="stMetricValue"] {
     font-size: 150px;
     font-weight: 700;
-    color: rgb(0, 255, 0);
+    color: rgb(0, 220, 0);
 }
 /*center metric label*/
 [data-testid="stMetricLabel"] > div:nth-child(1) {
