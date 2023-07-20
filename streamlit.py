@@ -52,6 +52,7 @@ st.markdown(
 <style>
 [data-testid="stMetricValue"] {
     font-size: 150px;
+    font-weight: 700;
     color: rgb(0, 255, 0);
 }
 /*center metric label*/
