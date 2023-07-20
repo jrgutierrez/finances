@@ -119,10 +119,10 @@ def detail_plots():
             df['company'] = [comp] * len(df)
             df_fin = pd.concat([df_fin, df])
 
-    df_fin = df_fin.loc[initial_date:]
+    df_fin = df_fin.sort_index().loc[initial_date:]
     fig = px.bar(df_fin, x = df_fin.index, y = 'price', color = 'company', title = f'Billing evolution')
     fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
-                    yaxis_title = 'Billing')
+                      yaxis_title = 'Billing')
     #fig.update_traces(marker_color='green', marker_line_color = 'green', marker_line_width = 1)
     fig.update_xaxes(type='category')
     st.plotly_chart(fig, use_container_width=True)
