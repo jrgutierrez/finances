@@ -22,9 +22,19 @@ if window in ['Overview', 'Detail']:
 if window == 'Forecasting':
     n_fc = st.sidebar.number_input('Insert Forecasting days:', min_value=1, max_value=60, value=15)
 
+range_type = st.sidebar.radio(
+        'Select dates 👇',
+        options=['Last 30 days', 'Max.'],
+    )
+
+if range_type == 'Last 30 days':
+    default_initial_date = datetime.today() - datetime.timedelta(days = 30)
+elif range_type == 'Max.':
+    default_initial_date = datetime(2023, 6, 1)
+
 initial_date = st.sidebar.date_input(
     'Select initial date:',
-    datetime(2023, 6, 1),
+    default_initial_date,
     min_value = datetime(2023, 6, 1), 
     max_value = datetime.today())
 
@@ -33,8 +43,7 @@ final_date = st.sidebar.date_input(
     datetime.today(),
     min_value = datetime(2023, 6, 1), 
     max_value = datetime.today())
-
-
+    
 data = data.loc[initial_date:final_date]
 
 st.markdown(
