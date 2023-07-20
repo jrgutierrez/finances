@@ -103,22 +103,23 @@ def detail_plots():
         for comp in data['company'].unique().tolist():
             df = data[data['company'] == comp].groupby(['date']).aggregate({'price': 'sum'}).reindex(pd.date_range(datetime(2023, 6, 1), datetime.today())).fillna(0)
             df['company'] = [comp] * len(df)
+            df_fin = pd.concat([df_fin, df])
 
     if group_time == 'Week':
         df_fin = pd.DataFrame(columns = ['date', 'price', 'company']).set_index('date')
         for comp in data['company'].unique().tolist():
             df = data[data['company'] == comp].groupby(lambda x: x.isocalendar()[1]).aggregate({'price': 'sum'})
             df['company'] = [comp] * len(df)
+            df_fin = pd.concat([df_fin, df])
 
     if group_time == 'Month':
         df_fin = pd.DataFrame(columns = ['date', 'price', 'company']).set_index('date')
         for comp in data['company'].unique().tolist():
             df = data[data['company'] == comp].groupby(lambda x: x.month).aggregate({'price': 'sum'})
             df['company'] = [comp] * len(df)
-            
+            df_fin = pd.concat([df_fin, df])
 
-    df_fin = pd.concat([df_fin, df]).loc[initial_date:]
-
+    df_fin = df_fin.loc[initial_date:]
     fig = px.bar(df_fin, x = df_fin.index, y = 'price', color = 'company', title = f'Billing evolution')
     fig.update_layout(xaxis_title = 'Week'if group_time == 'Week' else 'Month' if group_time == 'Month' else 'Date', 
                     yaxis_title = 'Billing')
