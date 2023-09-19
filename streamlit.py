@@ -89,6 +89,7 @@ if window == 'Forecasting':
 
 def overview_plots():
     st.metric(label = "Total Billed", value = f"{sum(data['price']):.2f}€")
+    print(f"{(sum(data['price'])/(final_date-initial_date).days):.2f}€")
     st.metric(label = "Day Average", value = f"{(sum(data['price'])/(final_date-initial_date).days):.2f}€")
 
     fig = px.line(data_evo, x = data_evo.index, y = 'price', markers = True, title = f'Billing evolution')
