@@ -72,7 +72,7 @@ st.markdown(
 )
 if window in ['Overview', 'Detail']:
     if group_time == 'Day':
-        data_evo = data.groupby(lambda x: x.date).aggregate({'price': 'sum'})
+        data_evo = data.reset_index().groupby(['date']).aggregate({'price': 'sum'})
         data_evo = data_evo.reindex(pd.date_range(datetime(2023, 6, 1), datetime.today())).fillna(0)
         data_evo = data_evo.loc[initial_date:final_date]
 
@@ -83,7 +83,7 @@ if window in ['Overview', 'Detail']:
         data_evo = data.groupby(lambda x: x.month).aggregate({'price': 'sum'})
 
 if window == 'Forecasting':
-    data_evo = data.groupby(lambda x: x.date).aggregate({'price': 'sum'})
+    data_evo = data.reset_index().groupby(['date']).aggregate({'price': 'sum'})
     data_evo = data_evo.reindex(pd.date_range(datetime(2023, 6, 1), datetime.today())).fillna(0)
     data_evo = data_evo.loc[initial_date:final_date]
 
